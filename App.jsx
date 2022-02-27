@@ -12,6 +12,9 @@ import TextButton from './components/TextButton';
 import Constraints from './constants';
 import generateRandomNumbers from './utility/numberUtility';
 
+const minCardNumber = 1;
+const maxCardNumber = 100;
+const numberOfUniqueNumbers = 6;
 const numberOfListColumns = 2;
 
 const styles = StyleSheet.create({
@@ -47,7 +50,12 @@ export default function App() {
   const [choiceTwo, setChoiceTwo] = useState(null);
 
   const shuffleCards = () => {
-    const CARD_PAIRS_VALUE = generateRandomNumbers(1, 100, 6);
+    const CARD_PAIRS_VALUE = generateRandomNumbers(
+      minCardNumber,
+      maxCardNumber,
+      numberOfUniqueNumbers,
+    );
+
     const allCards = [...CARD_PAIRS_VALUE, ...CARD_PAIRS_VALUE]
       .sort(() => Math.random() - 0.5)
       .map((card, index) => ({ id: index, number: card, matched: false }));
