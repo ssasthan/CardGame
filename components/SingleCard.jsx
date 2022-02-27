@@ -1,4 +1,4 @@
-import { React, useRef, useState } from 'react';
+import { React, useEffect, useRef } from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,6 +6,7 @@ import {
   TouchableHighlight,
   Animated,
 } from 'react-native';
+import PropTypes from 'prop-types';
 
 const styles = StyleSheet.create({
   container: {
@@ -46,29 +47,16 @@ const styles = StyleSheet.create({
   },
 });
 
-// eslint-disable-next-line react/prop-types
 export default function SingleCard({ card, handleChoice, flipped }) {
   const animatedValue = useRef(new Animated.Value(0)).current;
-  const [aValue, setAValue] = useState(0);
 
   const doAFlip = () => {
-    if (aValue >= 90) {
-      setAValue(0);
-      Animated.spring(animatedValue, {
-        toValue: 0,
-        friction: 8,
-        tension: 10,
-        useNativeDriver: true,
-      }).start();
-    } else {
-      setAValue(180);
-      Animated.spring(animatedValue, {
-        toValue: 180,
-        friction: 8,
-        tension: 10,
-        useNativeDriver: true,
-      }).start();
-    }
+    Animated.spring(animatedValue, {
+      toValue: flipped ? 180 : 0,
+      friction: 8,
+      tension: 10,
+      useNativeDriver: true,
+    }).start();
   };
 
   const frontInterpolate = animatedValue.interpolate({
@@ -94,6 +82,10 @@ export default function SingleCard({ card, handleChoice, flipped }) {
     doAFlip();
   };
 
+  useEffect(() => {
+    doAFlip();
+  });
+
   const frontView = (
     <TouchableHighlight onPress={handleClick} style={styles.frontView}>
       <Animated.View style={frontAnimatedStyle}>
@@ -114,3 +106,23 @@ export default function SingleCard({ card, handleChoice, flipped }) {
 
   return <View style={styles.container}>{flipped ? backView : frontView}</View>;
 }
+
+SingleCard.defaultProps = {
+  card: {
+    id: 1,
+    number: 2,
+    matched: true,
+  },
+};
+
+SingleCard.propTypes = {
+  flipped: PropTypes.bool.isRequired,
+  handleChoice: PropTypes.func.isRequired,
+  card: PropTypes.shape(
+    {
+      id: PropTypes.number,
+      number: PropTypes.number,
+      matched: PropTypes.bool,
+    },
+  ),
+};
