@@ -9,14 +9,14 @@ import {
 } from 'react-native';
 import SingleCard from './components/SingleCard';
 import TextButton from './components/TextButton';
+import Constraints from './constants';
 
 const numberOfListColumns = 2;
 const CARD_PAIRS_VALUE = [10, 20, 30, 40, 50, 60];
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
+    ...Constraints.Theme.CommonStyles.safeArea,
   },
 
   topView: {
