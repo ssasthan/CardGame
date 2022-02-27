@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   Button,
   FlatList,
+  Alert,
 } from 'react-native';
 import SingleCard from './components/SingleCard';
 
@@ -87,6 +88,21 @@ export default function App() {
       }
     }
   }, [choiceOne, choiceTwo]);
+
+  useEffect(() => {
+    if (cards.length > 0 && cards.every((card) => card.matched === true)) {
+      Alert.alert(
+        'Congratulations!',
+        `You win this game by ${steps} steps!`,
+        [
+          {
+            text: 'Try another round',
+            onPress: () => shuffleCards(),
+          },
+        ],
+      );
+    }
+  }, [cards]);
 
   useEffect(() => {
     shuffleCards();
