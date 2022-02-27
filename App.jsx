@@ -10,7 +10,7 @@ import {
 import SingleCard from './components/SingleCard';
 import TextButton from './components/TextButton';
 import Constraints from './constants';
-import generateRandomNumbers from './utility/numberUtility';
+import generateUniqueRandomNumbers from './utility/numberUtility';
 
 const minCardNumber = 1;
 const maxCardNumber = 100;
@@ -50,7 +50,7 @@ export default function App() {
   const [choiceTwo, setChoiceTwo] = useState(null);
 
   const shuffleCards = () => {
-    const CARD_PAIRS_VALUE = generateRandomNumbers(
+    const CARD_PAIRS_VALUE = generateUniqueRandomNumbers(
       minCardNumber,
       maxCardNumber,
       numberOfUniqueNumbers,
