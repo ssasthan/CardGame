@@ -4,11 +4,11 @@ import {
   Text,
   View,
   SafeAreaView,
-  Button,
   FlatList,
   Alert,
 } from 'react-native';
 import SingleCard from './components/SingleCard';
+import TextButton from './components/TextButton';
 
 const numberOfListColumns = 2;
 const CARD_PAIRS_VALUE = [10, 20, 30, 40, 50, 60];
@@ -118,7 +118,7 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topView}>
-        <Button title="Reset" onPress={shuffleCards} />
+        <TextButton title="Reset" onPress={shuffleCards} />
         <View style={styles.stepsInfoContainer}>
           <Text>Steps : </Text>
           <Text style={styles.stepsCount}>{steps}</Text>
