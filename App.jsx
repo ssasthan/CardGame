@@ -10,9 +10,9 @@ import {
 import SingleCard from './components/SingleCard';
 import TextButton from './components/TextButton';
 import Constraints from './constants';
+import generateRandomNumbers from './utility/numberUtility';
 
 const numberOfListColumns = 2;
-const CARD_PAIRS_VALUE = [10, 20, 30, 40, 50, 60];
 
 const styles = StyleSheet.create({
   container: {
@@ -47,6 +47,7 @@ export default function App() {
   const [choiceTwo, setChoiceTwo] = useState(null);
 
   const shuffleCards = () => {
+    const CARD_PAIRS_VALUE = generateRandomNumbers(1, 100, 6);
     const allCards = [...CARD_PAIRS_VALUE, ...CARD_PAIRS_VALUE]
       .sort(() => Math.random() - 0.5)
       .map((card, index) => ({ id: index, number: card, matched: false }));
